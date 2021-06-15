@@ -1,21 +1,25 @@
 <h1>Add User</h1>
 {{#if error}} <span>{{error}}</span>{{/if}}
-<form class="row g-2" method="POST" action="/user/search">
+<form class="row g-2" method="POST" action="/user/add">
    
     <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="First Name">
+        <input type="text" class="form-control" id="floatingInput" name="id" placeholder="User ID">
+        <label for="floatingInput">User Id</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" name="first_name" placeholder="First Name">
         <label for="floatingInput">First Name</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="Last Name">
+        <input type="text" class="form-control" id="floatingInput" name="last_name" placeholder="Last Name">
         <label for="floatingInput">Last Name</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="Email">
+        <input type="email" class="form-control" id="floatingInput" name="email" placeholder="Email">
         <label for="floatingInput">Email</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="Phone Number">
+        <input type="text" class="form-control" id="floatingInput" name="phone" placeholder="Phone Number">
         <label for="floatingInput">Phone</label>
     </div>
     

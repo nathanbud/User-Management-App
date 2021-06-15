@@ -21,7 +21,7 @@ client.on('connect', () => console.log('Connected to Redis'));
 //View Engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
-//app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 
 //methodOverride
 app.use(methodOverride('_method'));
@@ -38,7 +38,7 @@ app.post('/user/search', (req, res, next) => {
 
   client.hgetall(id, (err, obj) => {
     if (!obj) {
-      res.render('index', {
+      res.render('searchUser', {
         error: 'User does not exist',
       });
     } else {
@@ -57,7 +57,44 @@ app.get('/user/add', (req, res, next) => {
 
 //Process User Page
 app.post('/user/add', (req, res, next) => {
-  res.render('addUser');
+  let id = req.body.id;
+  let first_name = req.body.first_name;
+  let last_name = req.body.last_name;
+  let email = req.body.email;
+  let phone = req.body.phone;
+
+  client.hmset(
+    id,
+    [
+      'fist_name',
+      first_name,
+      'last_name',
+      last_name,
+      'email',
+      email,
+      'phone',
+      phone,
+    ],
+    (error, reply) => {
+      if (error) {
+        console.log(error);
+      }
+      console.log(reply);
+      res.redirect('/');
+    }
+  );
+
+  //   const [first_name, last_name, email, phone] = req.body;
+  //   let first_name;
+  //   let last_name;
+  //   let email;
+  //   let phone;
+});
+
+//Delete User
+app.delete('/user/delete/:id', (req, res, next) => {
+  client.del(req.params.id);
+  res.redirect('/');
 });
 
 app.listen(port, () => {
